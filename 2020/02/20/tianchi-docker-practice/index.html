@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>天池 Docker 练习场比赛攻略+代码 - 深刻的技术博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="深刻的技术博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="深刻的技术博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="本文将详细讲述天池 Docker 练习场的比赛流程，并贴出代码以供参考 1. 比赛内容题目：  输出 Hello world 计算 &amp;#x2F;tcdata&amp;#x2F;num_list.csv 中一列数字的总和 在 &amp;#x2F;tcdata&amp;#x2F;num_list.csv 文件中寻找最大的 10 个数，从大到小生成一个 List  输出结果格式： 12345&amp;amp;#123;      &amp;quot;Q1&amp;quot;:&amp;quot;Hello"><meta property="og:type" content="blog"><meta property="og:title" content="天池 Docker 练习场比赛攻略+代码"><meta property="og:url" content="https://shink.github.io/2020/02/20/tianchi-docker-practice/"><meta property="og:site_name" content="深刻的技术博客"><meta property="og:description" content="本文将详细讲述天池 Docker 练习场的比赛流程，并贴出代码以供参考 1. 比赛内容题目：  输出 Hello world 计算 &amp;#x2F;tcdata&amp;#x2F;num_list.csv 中一列数字的总和 在 &amp;#x2F;tcdata&amp;#x2F;num_list.csv 文件中寻找最大的 10 个数，从大到小生成一个 List  输出结果格式： 12345&amp;amp;#123;      &amp;quot;Q1&amp;quot;:&amp;quot;Hello"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://shink.github.io/img/og_image.png"><meta property="article:published_time" content="2020-02-20T04:46:33.000Z"><meta property="article:modified_time" content="2022-10-02T14:57:00.562Z"><meta property="article:author" content="Ji Yuanhao"><meta property="article:tag" content="Docker"><meta property="article:tag" content="比赛"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://shink.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shink.github.io/2020/02/20/tianchi-docker-practice/"},"headline":"天池 Docker 练习场比赛攻略+代码","image":["https://shink.github.io/img/og_image.png"],"datePublished":"2020-02-20T04:46:33.000Z","dateModified":"2022-10-02T14:57:00.562Z","author":{"@type":"Person","name":"Ji Yuanhao"},"publisher":{"@type":"Organization","name":"深刻的技术博客","logo":{"@type":"ImageObject","url":"https://shink.github.io/img/favicon.svg"}},"description":"本文将详细讲述天池 Docker 练习场的比赛流程，并贴出代码以供参考 1. 比赛内容题目：  输出 Hello world 计算 &#x2F;tcdata&#x2F;num_list.csv 中一列数字的总和 在 &#x2F;tcdata&#x2F;num_list.csv 文件中寻找最大的 10 个数，从大到小生成一个 List  输出结果格式： 12345&amp;#123;      &quot;Q1&quot;:&quot;Hello"}</script><link rel="canonical" href="https://shink.github.io/2020/02/20/tianchi-docker-practice/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="View on GitHub" href="https://github.com/shink/shink.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-02-20T04:46:33.000Z" title="2020/2/20 12:46:33">2020-02-20</time>发表</span><span class="level-item"><time dateTime="2022-10-02T14:57:00.562Z" title="2022/10/2 22:57:00">2022-10-02</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a></span><span class="level-item">4 分钟读完 (大约562个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">天池 Docker 练习场比赛攻略+代码</h1><div class="content"><p>本文将详细讲述天池 Docker 练习场的比赛流程，并贴出代码以供参考</p>
+<h2 id="1-比赛内容"><a href="#1-比赛内容" class="headerlink" title="1. 比赛内容"></a>1. 比赛内容</h2><p>题目：</p>
+<ul>
+<li>输出 Hello world</li>
+<li>计算 <code>/tcdata/num_list.csv</code> 中一列数字的总和</li>
+<li>在 <code>/tcdata/num_list.csv</code> 文件中寻找最大的 10 个数，从大到小生成一个 List</li>
+</ul>
+<p>输出结果格式：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span>  </span><br><span class="line">    <span class="attr">&quot;Q1&quot;</span><span class="punctuation">:</span><span class="string">&quot;Hello world&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="attr">&quot;Q2&quot;</span><span class="punctuation">:</span>sum值<span class="punctuation">,</span> </span><br><span class="line">    <span class="attr">&quot;Q3&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span>top10_list<span class="punctuation">]</span> </span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>输出 Hello world 就是将 <code>&quot;Hello world&quot;</code> 直接写入 <code>result.json</code> 中就行</li>
+<li><code>/tcdata/num_list.csv</code> ：提交镜像后评分系统中会有这个文件，所以在编程时直接引用就好</li>
+</ul>
+<span id="more"></span>
+<h2 id="2-编写代码"><a href="#2-编写代码" class="headerlink" title="2. 编写代码"></a>2. 编写代码</h2><p>下面以阿里云 Centos 7 为例</p>
+<p>创建文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/tianchi_docker_test &amp;&amp; cd /data/tianchi_docker_test</span><br></pre></td></tr></table></figure>
+<p>在 <code>tianchi_docker_test</code> 文件夹中创建文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch Dockerfile hello_world.py result.json run.sh</span><br></pre></td></tr></table></figure>
+<p>赋予权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 *</span><br></pre></td></tr></table></figure>
+<p><code>Dockerfile</code> 中，直接复制模版就行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># Base Images</span><br><span class="line">## 从天池基础镜像构建</span><br><span class="line">FROM registry.cn-shanghai.aliyuncs.com/tcc-public/python:3</span><br><span class="line"></span><br><span class="line">## 把当前文件夹里的文件构建到镜像的根目录下</span><br><span class="line">ADD . /</span><br><span class="line"></span><br><span class="line">## 指定默认工作目录为根目录（需要把run.sh和生成的结果文件都放在该文件夹下，提交后才能运行）</span><br><span class="line">WORKDIR /</span><br><span class="line"></span><br><span class="line">## 镜像启动后统一执行 sh run.sh</span><br><span class="line">CMD [&quot;sh&quot;, &quot;run.sh&quot;]</span><br></pre></td></tr></table></figure>
+<p><code>hello-world.py</code> 中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">file_name = <span class="string">&#x27;/tcdata/num_list.csv&#x27;</span></span><br><span class="line">data = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一题，直接写入 Hello world</span></span><br><span class="line">result = &#123;</span><br><span class="line">    <span class="string">&quot;Q1&quot;</span>: <span class="string">&quot;Hello world&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Q2&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&quot;Q3&quot;</span>: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二题，求和</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file_name, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(f)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> reader:</span><br><span class="line">        data.append(<span class="built_in">int</span>(row[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="built_in">sum</span> = <span class="built_in">sum</span>(data)</span><br><span class="line">result[<span class="string">&#x27;Q2&#x27;</span>] = <span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第三题</span></span><br><span class="line">result[<span class="string">&#x27;Q3&#x27;</span>] = <span class="built_in">sorted</span>(data, reverse=<span class="literal">True</span>)[<span class="number">0</span>:<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存到 result.json</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;result.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    json.dump(result, f)</span><br></pre></td></tr></table></figure>
+<p><code>run.sh</code> 中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python hello-world.py</span><br></pre></td></tr></table></figure>
+<h2 id="3-构建镜像并推送"><a href="#3-构建镜像并推送" class="headerlink" title="3. 构建镜像并推送"></a>3. 构建镜像并推送</h2><p>登录阿里云容器镜像服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login --username=用户名@aliyun.com registry.cn-shanghai.aliyuncs.com</span><br></pre></td></tr></table></figure>
+<p>构建镜像（<strong>注意</strong>：后面有个 <code>.</code>，表示使用当前目录下的 Dockerfile 构建镜像）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t registry.cn-shanghai.aliyuncs.com/命名空间/镜像名称:版本号 .</span><br></pre></td></tr></table></figure>
+<p>推送镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push registry.cn-shanghai.aliyuncs.com/命名空间/镜像名称:版本号</span><br></pre></td></tr></table></figure>
+<p>提交结果，镜像路径中填写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry.cn-shanghai.aliyuncs.com/命名空间/镜像名称:版本号</span><br></pre></td></tr></table></figure>
+<p>OK，good luck !</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>天池 Docker 练习场比赛攻略+代码</p><p><a href="https://shink.github.io/2020/02/20/tianchi-docker-practice/">https://shink.github.io/2020/02/20/tianchi-docker-practice/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Ji Yuanhao</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-02-20</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-10-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Docker/">Docker</a><a class="link-muted mr-2" rel="tag" href="/tags/%E6%AF%94%E8%B5%9B/">比赛</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=633966102c87310019e279ac&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat_donate_qrcode.jpg" alt="微信"></span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay_donate_qrcode.jpg" alt="支付宝"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/02/20/kg-demo/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">知识图谱 KBQA Demo：fuseki sparql python 版本问题详细解决方案</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/02/18/blog-hexo/"><span class="level-item">阿里云 CentOS 搭建 Hexo 详细教程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "fa1730d0f9390bdc196578815285cbc7",
+            repo: "gitalk-comments",
+            owner: "shink",
+            clientID: "4a4840c48682210d69be",
+            clientSecret: "c7b88354735964f6d5489fbaa68c3ea0a3536504",
+            admin: ["shink"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 Ji Yuanhao</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/shink/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

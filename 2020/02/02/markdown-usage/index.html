@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Markdown 语法一揽子计划（超详细） - 深刻的技术博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="深刻的技术博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="深刻的技术博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="1. 标题使用 #表示 1~6 级标题"><meta property="og:type" content="blog"><meta property="og:title" content="Markdown 语法一揽子计划（超详细）"><meta property="og:url" content="https://shink.github.io/2020/02/02/markdown-usage/"><meta property="og:site_name" content="深刻的技术博客"><meta property="og:description" content="1. 标题使用 #表示 1~6 级标题"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://shink.github.io/img/og_image.png"><meta property="article:published_time" content="2020-02-02T03:08:08.000Z"><meta property="article:modified_time" content="2022-10-02T14:53:45.749Z"><meta property="article:author" content="Ji Yuanhao"><meta property="article:tag" content="Markdown"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://shink.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shink.github.io/2020/02/02/markdown-usage/"},"headline":"Markdown 语法一揽子计划（超详细）","image":["https://shink.github.io/img/og_image.png"],"datePublished":"2020-02-02T03:08:08.000Z","dateModified":"2022-10-02T14:53:45.749Z","author":{"@type":"Person","name":"Ji Yuanhao"},"publisher":{"@type":"Organization","name":"深刻的技术博客","logo":{"@type":"ImageObject","url":"https://shink.github.io/img/favicon.svg"}},"description":"1. 标题使用 #表示 1~6 级标题"}</script><link rel="canonical" href="https://shink.github.io/2020/02/02/markdown-usage/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="View on GitHub" href="https://github.com/shink/shink.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-02-02T03:08:08.000Z" title="2020/2/2 11:08:08">2020-02-02</time>发表</span><span class="level-item"><time dateTime="2022-10-02T14:53:45.749Z" title="2022/10/2 22:53:45">2022-10-02</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Markdown/">Markdown</a></span><span class="level-item">8 分钟读完 (大约1177个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">Markdown 语法一揽子计划（超详细）</h1><div class="content"><h2 id="1-标题"><a href="#1-标题" class="headerlink" title="1. 标题"></a>1. 标题</h2><p>使用 <code>#</code>表示 1~6 级标题</p>
+<span id="more"></span>
+<blockquote>
+<p># 一级标题<br>## 二级标题<br>### 三级标题<br>#### 四级标题<br>##### 五级标题<br>###### 六级标题</p>
+</blockquote>
+<p>效果：</p>
+<blockquote>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6></blockquote>
+<h2 id="2-文本样式"><a href="#2-文本样式" class="headerlink" title="2. 文本样式"></a>2. 文本样式</h2><blockquote>
+<p>`标记`<br>*斜体*，_斜体_<br>**粗体**，__粗体__<br>**_斜体+粗体_**<br>\<u\>下划线\&lt;\/u><br>~~删除线~~</p>
+</blockquote>
+<p>效果：</p>
+<p><code>标记</code><br><em>斜体</em>，<em>斜体</em><br><strong>粗体</strong>，<strong>粗体</strong><br><strong><em>斜体+粗体</em></strong><br><u>下划线</u><br><del>删除线</del></p>
+<h3 id="2-1-字体大小和颜色"><a href="#2-1-字体大小和颜色" class="headerlink" title="2.1 字体大小和颜色"></a>2.1 字体大小和颜色</h3><p>字体大小使用 <code>&lt;font&gt;&lt;/font&gt;</code> 标签，该标签下的 <code>size</code> 属性为字体大小，范围为 1~7，<code>color</code> 属性为字体颜色，如 red、blue 等</p>
+<blockquote>
+<font size=1 color=red>size=1 color=red</font>  
+<font size=2 color=blue>size=2 color=blue</font>  
+<font size=3 color=yellow>size=3 color=yellow</font>  
+<font size=4 color=green>size=4 color=green</font>  
+<font size=5 color=orange>size=5 color=orange</font>  
+<font size=6 color=gray>size=6 color=gray</font>  
+<font size=7 color=purple>size=7 color=purple</font>
+
+</blockquote>
+<h2 id="3-链接"><a href="#3-链接" class="headerlink" title="3. 链接"></a>3. 链接</h2><p>链接有两种形式：行内式和参考式</p>
+<h3 id="行内式"><a href="#行内式" class="headerlink" title="行内式 "></a>行内式 <!-- omit in toc --></h3><blockquote>
+<p>[Google](<a target="_blank" rel="noopener" href="https://www.google.com">https://www.google.com</a> “谷歌搜索”)</p>
+</blockquote>
+<p>效果：</p>
+<p><a target="_blank" rel="noopener" href="https://www.google.com" title="谷歌搜索">Google</a></p>
+<h3 id="参考式"><a href="#参考式" class="headerlink" title="参考式 "></a>参考式 <!-- omit in toc --></h3><blockquote>
+<p>[Google][1]<br>[Baidu][2]</p>
+<p>[1]: <a target="_blank" rel="noopener" href="https://www.google.com">https://www.google.com</a> “谷歌搜索”<br>[2]: <a target="_blank" rel="noopener" href="https://www.baidu.com">https://www.baidu.com</a> “百度一下”</p>
+</blockquote>
+<p>效果：</p>
+<p><a target="_blank" rel="noopener" href="https://www.google.com" title="谷歌搜索">Google</a><br><a target="_blank" rel="noopener" href="https://www.baidu.com" title="百度一下">Baidu</a></p>
+<h2 id="4-图片"><a href="#4-图片" class="headerlink" title="4. 图片"></a>4. 图片</h2><p>插入图片和插入链接类似，只是需要在链接的基础上前面加一个 <code>!</code></p>
+<blockquote>
+<p>![icon](<a target="_blank" rel="noopener" href="https://gitee.com/tsund/data/raw/master/favicon/favicon-180x180.png">https://gitee.com/tsund/data/raw/master/favicon/favicon-180x180.png</a> “icon”)</p>
+</blockquote>
+<p>效果：</p>
+<center>
+
+![icon](https://gitee.com/tsund/data/raw/master/favicon/favicon-180x180.png "icon")
+
+</center>
+
+<p><strong>另</strong>：使用 <code>&lt;center&gt;&lt;/center&gt;</code> 嵌套使图片居中：</p>
+<blockquote>
+<p>\<center\></p>
+<p>![](url)</p>
+<p>\&lt;/center></p>
+</blockquote>
+<h2 id="5-区块引用"><a href="#5-区块引用" class="headerlink" title="5. 区块引用"></a>5. 区块引用</h2><p>使用 <code>&gt;</code> 表示引用</p>
+<blockquote>
+<p>> 区块引用<br>>> 嵌套引用</p>
+</blockquote>
+<p>效果：</p>
+<blockquote>
+<p>区块引用</p>
+<blockquote>
+<p>嵌套引用</p>
+</blockquote>
+</blockquote>
+<h2 id="6-代码区块"><a href="#6-代码区块" class="headerlink" title="6. 代码区块"></a>6. 代码区块</h2><p>在每行加上 4 个空格或者一个制表符</p>
+<p>public static void main(String args[]){<br>&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“Hello World”);<br>}</p>
+<p>效果：</p>
+<pre><code>public static void main(String args[])
+&#123;
+    System.out.println(&quot;Hello World&quot;);
+&#125;
+</code></pre><p><strong>注意</strong>：此时需要与普通段落之间存在空行</p>
+<p><strong>或者</strong>，使用```包裹代码（推荐），如下：</p>
+<blockquote>
+<p>```java<br>public static void main(String args[])<br> {<br>&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(“Hello World”);<br> }<br>```</p>
+</blockquote>
+<p><strong>注意</strong>：```后面紧跟展示代码所使用的语言，如 java、javascript、python、shell 等</p>
+<h2 id="7-目录"><a href="#7-目录" class="headerlink" title="7. 目录"></a>7. 目录</h2><p>Markdown 自动生成目录详见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sculpta/article/details/104173014">https://blog.csdn.net/sculpta/article/details/104173014</a></p>
+<h2 id="8-列表"><a href="#8-列表" class="headerlink" title="8. 列表"></a>8. 列表</h2><h3 id="8-1-无序列表"><a href="#8-1-无序列表" class="headerlink" title="8.1 无序列表"></a>8.1 无序列表</h3><p>使用 <code>·</code> 、<code>+</code> 、或 <code>-</code> 标记无序列表，可嵌套</p>
+<blockquote>
+<p>- 第一项<br>- 第二项<br>- 第三项</p>
+</blockquote>
+<p>效果：</p>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<h3 id="8-2-有序列表"><a href="#8-2-有序列表" class="headerlink" title="8.2 有序列表"></a>8.2 有序列表</h3><p>有序列表的标记方式是序号后面加 <code>.</code></p>
+<blockquote>
+<p>1. 第一项<br>2. 第二项<br>3. 第三项</p>
+</blockquote>
+<p>效果：</p>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ol>
+<h2 id="9-复选框"><a href="#9-复选框" class="headerlink" title="9. 复选框"></a>9. 复选框</h2><blockquote>
+<p>- [ ] a<br>- [x] b<br>- [ ] c<br>- [x] d</p>
+</blockquote>
+<p>效果：</p>
+<ul>
+<li>[ ] a</li>
+<li>[x] b</li>
+<li>[ ] c</li>
+<li>[x] d</li>
+</ul>
+<h2 id="10-表情-😏"><a href="#10-表情-😏" class="headerlink" title="10. 表情 😏"></a>10. 表情 😏</h2><h3 id="10-1-Emoji"><a href="#10-1-Emoji" class="headerlink" title="10.1 Emoji"></a>10.1 Emoji</h3><p>目前 Emoji 已经支持大部分文本输入场景，当然也适用于 Markdown😆</p>
+<p><strong>注意</strong>：Emoji 表情在不同设备、不同软件、不同浏览器显示会有所不同</p>
+<p>随便附上几个（直接选中复制、粘贴就 OK），更多可以参考 <a target="_blank" rel="noopener" href="https://copy.emojiall.com/zh-hans/" title="Emoji All">Emoji All</a></p>
+<p>😀 😃 😄 😁 😆 😅 😂 😋 😒 😏 🙃 🙂 😐 😑 ⭐ 🌟 ✨ 🔥</p>
+<h3 id="10-2-符号表情"><a href="#10-2-符号表情" class="headerlink" title="10.2 符号表情"></a>10.2 符号表情</h3><p>山顶洞人用的表情包 ʕ •ᴥ•ʔ</p>
+<p>( ´◔ ‸◔`)</p>
+<p>⊙▂⊙ 　 ⊙ ０ ⊙ 　 ⊙︿⊙ 　 ⊙ω⊙ 　 ⊙﹏⊙ 　 ⊙△⊙ 　 ⊙▽⊙</p>
+<p>∩▂∩ 　 ∩ ０ ∩ 　 ∩︿∩ 　 ∩ω∩ 　 ∩﹏∩ 　 ∩△∩ 　 ∩▽∩</p>
+<p>●▂● 　　 ● ０ ● 　　 ●︿● 　　 ●ω● 　　 ●﹏● 　　 ●△● 　 ●▽●</p>
+<p>∪▂∪ 　 ∪ ０ ∪ 　 ∪︿∪ 　 ∪ω∪ 　 ∪﹏∪ 　 ∪△∪ 　 ∪▽∪</p>
+<p>≧▂≦ 　 ≧ ０ ≦ 　 ≧︿≦ 　 ≧ω≦ 　 ≧﹏≦ 　 ≧△≦ 　 ≧▽≦</p>
+<p>＞ ▂ ＜　＞０＜　＞︿＜　＞ ω ＜　＞﹏＜　＞ △ ＜　＞ ▽ ＜</p>
+<blockquote>
+<p>参考链接： <a target="_blank" rel="noopener" href="https://www.douban.com/note/227408401/" title="标点符号表情大全">标点符号表情大全</a></p>
+</blockquote>
+<h2 id="11-分割线"><a href="#11-分割线" class="headerlink" title="11. 分割线"></a>11. 分割线</h2><p>使用三个或以上 <code>*</code> 、 <code>-</code> 、 <code>_</code></p>
+<p>效果：</p>
+<hr>
+<h2 id="12-表格-😂"><a href="#12-表格-😂" class="headerlink" title="12. 表格 😂"></a>12. 表格 😂</h2><p>用 <code>|</code> 表示表格纵向边界，表头和表内容用 <code>-</code> 隔开，并可用 <code>:</code> 进行对齐设置——两边都有 <code>:</code> 则表示居中，若不加 <code>:</code> 则默认左对齐</p>
+<blockquote>
+<p>| 表头 | 内容 |<br>| :——: | :———————————: |<br>| Google | <a target="_blank" rel="noopener" href="https://www.google.com">https://www.google.com</a> |<br>| Baidu | <a target="_blank" rel="noopener" href="https://www.baidu.com">https://www.baidu.com</a> |</p>
+</blockquote>
+<p>效果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">表头</th>
+<th style="text-align:center">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Google</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.google.com">https://www.google.com</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Baidu</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.baidu.com">https://www.baidu.com</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="13-注脚"><a href="#13-注脚" class="headerlink" title="13. 注脚"></a>13. 注脚</h2><blockquote>
+<p>一个具有注脚的文本。[^1]</p>
+<p>[^1]: 注脚的解释</p>
+</blockquote>
+<p>效果：</p>
+<p>一个具有注脚的文本。<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<blockquote id="fn_1">
+<sup>1</sup>. 注脚的解释<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<h2 id="14-折叠内容"><a href="#14-折叠内容" class="headerlink" title="14. 折叠内容"></a>14. 折叠内容</h2><blockquote>
+<p>\<details><br>\<summary>Title（点击展开隐藏内容）\</summary></p>
+<p>content</p>
+<p>\&lt;/details&gt;</p>
+</blockquote>
+<p>效果：</p>
+<details>
+<summary>Title（点击展开隐藏内容）</summary>
+
+content
+
+</details>
+
+<p><strong>注意</strong>：部分场景（如 CSDN）可能不支持该语法，不过在 vs code、github 等场景可以正常显示</p>
+<h2 id="15-数学公式-😉"><a href="#15-数学公式-😉" class="headerlink" title="15. 数学公式 😉"></a>15. 数学公式 😉</h2><blockquote>
+<p>详细数学公式语法，链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sculpta/article/details/104142503">Markdown 语法之数学公式（from CSDN）</a></p>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Markdown 语法一揽子计划（超详细）</p><p><a href="https://shink.github.io/2020/02/02/markdown-usage/">https://shink.github.io/2020/02/02/markdown-usage/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Ji Yuanhao</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-02-02</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-10-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Markdown/">Markdown</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=633966102c87310019e279ac&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat_donate_qrcode.jpg" alt="微信"></span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay_donate_qrcode.jpg" alt="支付宝"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/02/02/markdown-math/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Markdown 语法之数学公式</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/02/02/algo-max-subarray/"><span class="level-item">Java 求最大子数组</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "c34ef85a09c26316ec2a1062532b9f51",
+            repo: "gitalk-comments",
+            owner: "shink",
+            clientID: "4a4840c48682210d69be",
+            clientSecret: "c7b88354735964f6d5489fbaa68c3ea0a3536504",
+            admin: ["shink"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 Ji Yuanhao</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/shink/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

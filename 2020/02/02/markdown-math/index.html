@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Markdown 语法之数学公式 - 深刻的技术博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="深刻的技术博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="深刻的技术博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="注：VS Code中需安装插件，如 Markdown All in One"><meta property="og:type" content="blog"><meta property="og:title" content="Markdown 语法之数学公式"><meta property="og:url" content="https://shink.github.io/2020/02/02/markdown-math/"><meta property="og:site_name" content="深刻的技术博客"><meta property="og:description" content="注：VS Code中需安装插件，如 Markdown All in One"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/01/markdown-math/markdown-plugin.png"><meta property="article:published_time" content="2020-02-02T03:11:33.000Z"><meta property="article:modified_time" content="2022-10-02T14:53:45.416Z"><meta property="article:author" content="Ji Yuanhao"><meta property="article:tag" content="Markdown"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://gitee.com/tsund/data/raw/master/blog/2020/01/markdown-math/markdown-plugin.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shink.github.io/2020/02/02/markdown-math/"},"headline":"Markdown 语法之数学公式","image":["https://gitee.com/tsund/data/raw/master/blog/2020/01/markdown-math/markdown-plugin.png"],"datePublished":"2020-02-02T03:11:33.000Z","dateModified":"2022-10-02T14:53:45.416Z","author":{"@type":"Person","name":"Ji Yuanhao"},"publisher":{"@type":"Organization","name":"深刻的技术博客","logo":{"@type":"ImageObject","url":"https://shink.github.io/img/favicon.svg"}},"description":"注：VS Code中需安装插件，如 Markdown All in One"}</script><link rel="canonical" href="https://shink.github.io/2020/02/02/markdown-math/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="View on GitHub" href="https://github.com/shink/shink.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-02-02T03:11:33.000Z" title="2020/2/2 11:11:33">2020-02-02</time>发表</span><span class="level-item"><time dateTime="2022-10-02T14:53:45.416Z" title="2022/10/2 22:53:45">2022-10-02</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Markdown/">Markdown</a></span><span class="level-item">12 分钟读完 (大约1744个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">Markdown 语法之数学公式</h1><div class="content"><p><strong>注</strong>：VS Code中需安装插件，如 Markdown All in One</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/01/markdown-math/markdown-plugin.png" width="650">
+</p>
+
+<span id="more"></span>
+<h2 id="1-使用-包裹公式"><a href="#1-使用-包裹公式" class="headerlink" title="1. 使用 $ 包裹公式"></a>1. 使用 <code>$</code> 包裹公式</h2><p>使用 $$<code>或</code>$$$ 包裹公式，被包裹的内容会全部展示为 <code>LaTex</code> 公式（使用 $$$$ 包裹的公式会独占一行且水平居中）</p>
+<blockquote>
+<p><strong>小贴士</strong>：字体控制，可以使公式更加美观，符号：<code>\displaystyle</code><br>   不使用字体控制的情况：$\frac{x+y}{y+z}$，效果：$\frac{x+y}{y+z}$<br>   使用字体控制的情况：$\displaystyle \frac{x+y}{y+z}$，效果：$\displaystyle \frac{x+y}{y+z}$</p>
+</blockquote>
+<h2 id="2-括号、分隔符"><a href="#2-括号、分隔符" class="headerlink" title="2. 括号、分隔符"></a>2. 括号、分隔符</h2><ol>
+<li><p><strong>下划线</strong>，符号：<code>\underline</code> 或 <code>&lt;u&gt;&lt;/u&gt;</code><br>如：$\underline{x + y + z}$，效果：$\underline{x + y + z}$</p>
+</li>
+<li><p><strong>上大括号</strong>，符号：<code>\overbrace&#123;算式&#125;</code><br>如：$\overbrace{a+b+c+d}^{2.0}$，效果：$\overbrace{a+b+c+d}^{2.0}$</p>
+</li>
+<li><p><strong>下大括号</strong>，符号：<code>\underbrace&#123;算式&#125;</code><br>如：$a+\underbrace{b+c}<em>{1.0}+d$，效果：$a+\underbrace{b+c}</em>{1.0}+d$</p>
+</li>
+<li><p><strong>上位符号</strong>，符号：<code>\stacrel&#123;上位符号&#125;&#123;基位符号&#125;</code><br>如：$\vec{x}\stackrel{\mathrm{def}}{=}{x_1,\cdots,x_n}$，效果：$\vec{x}\stackrel{\mathrm{def}}{=}{x_1,\cdots,x_n}$</p>
+</li>
+<li><p><strong>自适应括号</strong>，符号：<code>\left符号 内容 \right符号</code><br>在配对符号中可以让括号自动适应公式的高度，如：<br>$\displaystyle \left( \frac{x}{2} \right)$，效果：$\displaystyle \left( \frac{x}{2} \right)$</p>
+<p><strong>另</strong>：在非配对符号中，使用 <code>\left. 内容 \right符号</code> 或 <code>\left符号 内容 \right.</code>（注意：有个 <code>.</code> ）</p>
+<p>如：$\displaystyle \left. \frac{du}{dx} \right|<em>{x=0}$，效果：$\displaystyle \left. \frac{du}{dx} \right|</em>{x=0}$</p>
+</li>
+</ol>
+<h2 id="3-公式编号"><a href="#3-公式编号" class="headerlink" title="3. 公式编号"></a>3. 公式编号</h2><p><strong>注意</strong>：需编号的公式必须独占一行且居中，即 <strong>必须使用 $$$$ 符号</strong></p>
+<p>常用 <code>\tag&#123;编号&#125;</code> 或 <code>\tag*&#123;编号&#125;</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>\tag&#123;编号&#125;</code></td>
+<td style="text-align:center">公式宏包序号设置命令，可用于带星号公式环境中的公式行</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\tag*&#123;编号&#125;</code></td>
+<td style="text-align:center">作用与 \tag 相同，只是标号两侧 <strong>没有圆括号</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例如：</p>
+<blockquote>
+<p>$$ x^2+y^2=z^2 \tag{$1.1$} $$</p>
+<p>$$ x^2+y^2=z^2 \tag*{$1.2$} $$</p>
+</blockquote>
+<p>效果：</p>
+<script type="math/tex; mode=display">x^2+y^2=z^2 \tag{$1.1$}</script><script type="math/tex; mode=display">x^2+y^2=z^2 \tag*{$1.2$}</script><h2 id="4-变量表示"><a href="#4-变量表示" class="headerlink" title="4. 变量表示"></a>4. 变量表示</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">上标</td>
+<td style="text-align:center">$x^2$</td>
+<td style="text-align:center"><code>x^2</code></td>
+</tr>
+<tr>
+<td style="text-align:center">下标</td>
+<td style="text-align:center">$y_4$</td>
+<td style="text-align:center"><code>y_4</code></td>
+</tr>
+<tr>
+<td style="text-align:center">矢量</td>
+<td style="text-align:center">$\vec{a}$</td>
+<td style="text-align:center"><code>\vec&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\hat{a}$</td>
+<td style="text-align:center"><code>\hat&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\check{a}$</td>
+<td style="text-align:center"><code>\check&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\breve{a}$</td>
+<td style="text-align:center"><code>\breve&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\tilde{a}$</td>
+<td style="text-align:center"><code>\tilde&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\bar{a}$</td>
+<td style="text-align:center"><code>\bar&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\acute{a}$</td>
+<td style="text-align:center"><code>\acute&#123;a&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$\mathring{a}$</td>
+<td style="text-align:center"><code>\mathring&#123;a&#125;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="5-其他常用符号"><a href="#5-其他常用符号" class="headerlink" title="5. 其他常用符号"></a>5. 其他常用符号</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">无穷</td>
+<td style="text-align:center">$\infty$</td>
+<td style="text-align:center"><code>\infty</code></td>
+</tr>
+<tr>
+<td style="text-align:center">上箭头</td>
+<td style="text-align:center">$\uparrow$</td>
+<td style="text-align:center"><code>\uparrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">加粗上箭头</td>
+<td style="text-align:center">$\Uparrow$</td>
+<td style="text-align:center"><code>\Uparrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">下箭头</td>
+<td style="text-align:center">$\downarrow$</td>
+<td style="text-align:center"><code>\downarrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">加粗下箭头</td>
+<td style="text-align:center">$\Downarrow$</td>
+<td style="text-align:center"><code>\Downarrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">左箭头</td>
+<td style="text-align:center">$\leftarrow$</td>
+<td style="text-align:center"><code>\leftarrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">加粗左箭头</td>
+<td style="text-align:center">$\Leftarrow$</td>
+<td style="text-align:center"><code>\Leftarrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">右箭头</td>
+<td style="text-align:center">$\rightarrow$</td>
+<td style="text-align:center"><code>\rightarrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">加粗右箭头</td>
+<td style="text-align:center">$\Rightarrow$</td>
+<td style="text-align:center"><code>\Rightarrow</code></td>
+</tr>
+<tr>
+<td style="text-align:center">底端对齐的省略号</td>
+<td style="text-align:center">$1,2,\ldots,n$</td>
+<td style="text-align:center"><code>\ldots</code></td>
+</tr>
+<tr>
+<td style="text-align:center">中线对齐的省略号</td>
+<td style="text-align:center">$1 + 2 + \cdots + n$</td>
+<td style="text-align:center"><code>\cdots</code></td>
+</tr>
+<tr>
+<td style="text-align:center">竖直对齐的省略号</td>
+<td style="text-align:center">$\vdots$</td>
+<td style="text-align:center"><code>\vdots</code></td>
+</tr>
+<tr>
+<td style="text-align:center">斜对齐的省略号</td>
+<td style="text-align:center">$\ddots$</td>
+<td style="text-align:center"><code>\ddots</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="6-数学运算"><a href="#6-数学运算" class="headerlink" title="6. 数学运算"></a>6. 数学运算</h2><ol>
+<li><p><strong>除法运算（分数表示）</strong>，符号：<code>\frac&#123;分子&#125;&#123;分母&#125;</code> 或 <code>分子 \over 分母</code><br>如：$\frac{1-x}{y+1}$ 或 $x \over x+y$，效果：$\frac{1-x}{y+1}$ 或 $x \over x+y$</p>
+</li>
+<li><p><strong>平均数运算</strong>，符号：<code>\overline&#123;算式&#125;</code><br>如：$\overline{x + y + z}$，效果：$\overline{x + y + z}$</p>
+</li>
+<li><p><strong>开方运算</strong>，符号：<code>\sqrt[开方数]&#123;被开方数&#125;</code> （开二次方可直接使用 <code>\sqrt 被开方数</code> ）<br>如：$\sqrt x$，效果：$\sqrt x$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$\sqrt[3] y$，效果：$\sqrt[3] y$</p>
+</li>
+<li><p><strong>对数运算</strong>，符号：<code>\log_低数&#123;真数&#125;</code><br>如：$\log_5{8}$，效果：$\log_5{8}$</p>
+</li>
+<li><p><strong>极限运算</strong>，符号：<code>\lim</code><br>如：$\lim<em>{x \to +\infty}{\frac{1}{x}}$，效果：$\lim</em>{x \to +\infty}{\frac{1}{x}}$</p>
+</li>
+</ol>
+<blockquote>
+<p>建议搭配 <code>\displaystyle</code> 使用：$\displaystyle \lim<em>{x \to +\infty}{\frac{1}{x}}$，效果：$\displaystyle \lim</em>{x \to +\infty}{\frac{1}{x}}$</p>
+</blockquote>
+<ol>
+<li><strong>求和运算</strong>，符号：<code>\sum</code><br>如：$\sum^{+\infty}<em>{i = 1}{\frac{1}{i}}$，效果：$\sum^{+\infty}</em>{i = 1}{\frac{1}{i}}$</li>
+</ol>
+<blockquote>
+<p>建议搭配 <code>\displaystyle</code> 使用：$\displaystyle \sum^{+\infty}<em>{i = 1}{\frac{1}{i}}$，效果：$\displaystyle \sum^{+\infty}</em>{i = 1}{\frac{1}{i}}$</p>
+</blockquote>
+<ol>
+<li><strong>积分运算</strong>，符号：<code>\int</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">积分</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">定积分</td>
+<td style="text-align:center">$\int$</td>
+<td style="text-align:center"><code>\int</code></td>
+</tr>
+<tr>
+<td style="text-align:center">二重积分</td>
+<td style="text-align:center">$\iint$</td>
+<td style="text-align:center"><code>\iint</code></td>
+</tr>
+<tr>
+<td style="text-align:center">三重积分</td>
+<td style="text-align:center">$\iiint$</td>
+<td style="text-align:center"><code>\iiint</code></td>
+</tr>
+<tr>
+<td style="text-align:center">曲线积分</td>
+<td style="text-align:center">$\oint$</td>
+<td style="text-align:center"><code>\oint</code></td>
+</tr>
+<tr>
+<td style="text-align:center">曲面积分</td>
+<td style="text-align:center">$\oiint$</td>
+<td style="text-align:center"><code>\oiint</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如：$\int^{\infty}<em>{1}{\frac{1}{x}dx}$，效果：$\int^{\infty}</em>{1}{\frac{1}{x}dx}$</p>
+<blockquote>
+<p>建议搭配 <code>\displaystyle</code> 使用：$\displaystyle \int^{\infty}<em>{1}{\frac{1}{x}dx}$，效果：$\displaystyle \int^{\infty}</em>{1}{\frac{1}{x}dx}$</p>
+</blockquote>
+<ol>
+<li><strong>偏微分运算</strong>，符号：<code>\partial</code><br>如：$\frac{\partial xy^2}{\partial y}$，效果：$\frac{\partial xy^2}{\partial y}$</li>
+</ol>
+<blockquote>
+<p>建议搭配 <code>\displaystyle</code> 使用：$\displaystyle \frac{\partial xy^2}{\partial y}$，效果：$\displaystyle \frac{\partial xy^2}{\partial y}$</p>
+</blockquote>
+<ol>
+<li><strong>矩阵表示</strong>，符号：<code>\begin&#123;matrix&#125; \end&#123;matrix&#125;</code><br>如：    <blockquote>
+<p>$$A=<br>\left(\begin{matrix}<br>&nbsp;&nbsp;&nbsp;&nbsp;x_{11} \&amp;x_{12} \&amp;x_{13} \&amp;\cdots \&amp;x_{1n} \\<br>&nbsp;&nbsp;&nbsp;&nbsp;x_{21} \&amp;x_{22} \&amp;x_{23} \&amp;\cdots \&amp;x_{2n} \\<br>&nbsp;&nbsp;&nbsp;&nbsp;\vdots \&amp;\vdots \&amp;\vdots \&amp;\ddots \&amp;\vdots \\<br>&nbsp;&nbsp;&nbsp;&nbsp;x_{n1} \&amp;x_{n2} \&amp;x_{n3} \&amp;\cdots \&amp;x_{nn}<br>\end{matrix} \right)$$</p>
+</blockquote>
+</li>
+</ol>
+<p>效果：</p>
+<script type="math/tex; mode=display">A=
+\left(\begin{matrix}
+    x_{11} &x_{12} &x_{13} &\cdots &x_{1n} \\
+    x_{21} &x_{22} &x_{23} &\cdots &x_{2n} \\
+    \vdots &\vdots &\vdots &\ddots &\vdots \\
+    x_{n1} &x_{n2} &x_{n3} &\cdots &x_{nn}
+\end{matrix} \right)</script><p>用竖线将矩阵分割为 <code>(A|b)</code> 形式，如：</p>
+<blockquote>
+<p>$$(A|b)=<br>\left(\begin{array}{ccccc|c}<br>&nbsp;&nbsp;&nbsp;&nbsp;x_{11} \&amp;x_{12} \&amp;x_{13} \&amp;\cdots \&amp;x_{1n} \&amp;b_1 \\<br>&nbsp;&nbsp;&nbsp;&nbsp;x_{21} \&amp;x_{22} \&amp;x_{23} \&amp;\cdots \&amp;x_{2n} \&amp;b_2 \\<br>&nbsp;&nbsp;&nbsp;&nbsp;\vdots \&amp;\vdots \&amp;\vdots \&amp;\ddots \&amp;\vdots \&amp;\vdots \\<br>&nbsp;&nbsp;&nbsp;&nbsp;x_{n1} \&amp;x_{n2} \&amp;x_{n3} \&amp;\cdots \&amp;x_{nn} \&amp;b_n<br>\end{array} \right)$$</p>
+</blockquote>
+<p>效果：</p>
+<script type="math/tex; mode=display">(A|b)=
+\left(\begin{array}{ccccc|c}
+    x_{11} &x_{12} &x_{13} &\cdots &x_{1n} &b_1 \\
+    x_{21} &x_{22} &x_{23} &\cdots &x_{2n} &b_2 \\
+    \vdots &\vdots &\vdots &\ddots &\vdots &\vdots \\
+    x_{n1} &x_{n2} &x_{n3} &\cdots &x_{nn} &b_n
+\end{array} \right)</script><h2 id="7-逻辑运算"><a href="#7-逻辑运算" class="headerlink" title="7. 逻辑运算"></a>7. 逻辑运算</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">逻辑描述</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">大于等于</td>
+<td style="text-align:center">$\geq$</td>
+<td style="text-align:center"><code>\geq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">小于等于</td>
+<td style="text-align:center">$\leq$</td>
+<td style="text-align:center"><code>\leq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">不等于</td>
+<td style="text-align:center">$\neq$</td>
+<td style="text-align:center"><code>\neq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">不大于等于</td>
+<td style="text-align:center">$\ngeq$</td>
+<td style="text-align:center"><code>\ngeq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">不小于等于</td>
+<td style="text-align:center">$\nleq$</td>
+<td style="text-align:center"><code>\nleq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">约等于</td>
+<td style="text-align:center">$\approx$</td>
+<td style="text-align:center"><code>\approx</code></td>
+</tr>
+<tr>
+<td style="text-align:center">恒等于</td>
+<td style="text-align:center">$\equiv$</td>
+<td style="text-align:center"><code>\equiv</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="8-集合运算"><a href="#8-集合运算" class="headerlink" title="8. 集合运算"></a>8. 集合运算</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">属于</td>
+<td style="text-align:center">$\in$</td>
+<td style="text-align:center"><code>\in</code></td>
+</tr>
+<tr>
+<td style="text-align:center">不属于</td>
+<td style="text-align:center">$\notin$</td>
+<td style="text-align:center"><code>\notin</code></td>
+</tr>
+<tr>
+<td style="text-align:center">子集</td>
+<td style="text-align:center">$\subseteq$ , $\supseteq$</td>
+<td style="text-align:center"><code>\subseteq</code> , <code>\supseteq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">非子集</td>
+<td style="text-align:center">$\not\subseteq$ , $\not\supseteq$</td>
+<td style="text-align:center"><code>\not\subseteq</code> , <code>\not\supseteq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">真子集</td>
+<td style="text-align:center">$\subsetneq$ , $\supsetneq$</td>
+<td style="text-align:center"><code>\subsetneq</code> , <code>\supsetneq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">非真子集</td>
+<td style="text-align:center">$\not\subsetneq$ , $\not\supsetneq$</td>
+<td style="text-align:center"><code>\not\subsetneq</code> , <code>\not\supsetneq</code></td>
+</tr>
+<tr>
+<td style="text-align:center">交集</td>
+<td style="text-align:center">$\cap$</td>
+<td style="text-align:center"><code>\cap</code></td>
+</tr>
+<tr>
+<td style="text-align:center">并集</td>
+<td style="text-align:center">$\cup$</td>
+<td style="text-align:center"><code>\cup</code></td>
+</tr>
+<tr>
+<td style="text-align:center">差集</td>
+<td style="text-align:center">$\setminus$</td>
+<td style="text-align:center"><code>\setminus</code></td>
+</tr>
+<tr>
+<td style="text-align:center">同或</td>
+<td style="text-align:center">$\bigodot$</td>
+<td style="text-align:center"><code>\bigodot</code></td>
+</tr>
+<tr>
+<td style="text-align:center">同与</td>
+<td style="text-align:center">$\bigotimes$</td>
+<td style="text-align:center"><code>\bigotimes</code></td>
+</tr>
+<tr>
+<td style="text-align:center">异或</td>
+<td style="text-align:center">$\bigoplus$</td>
+<td style="text-align:center"><code>\bigoplus</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="9-希腊字母"><a href="#9-希腊字母" class="headerlink" title="9. 希腊字母"></a>9. 希腊字母</h2><p>将部分符号的表达式首字母大写，即为相应符号的大写形式</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">小写符号</th>
+<th style="text-align:center">表达式</th>
+<th style="text-align:center">大写符号</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$\alpha$</td>
+<td style="text-align:center"><code>\alpha</code></td>
+<td style="text-align:center">$\Alpha$</td>
+<td style="text-align:center"><code>\Alpha</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\beta$</td>
+<td style="text-align:center"><code>\beta</code></td>
+<td style="text-align:center">$\Beta$</td>
+<td style="text-align:center"><code>\Beta</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\gamma$</td>
+<td style="text-align:center"><code>\gamma</code></td>
+<td style="text-align:center">$\Gamma$</td>
+<td style="text-align:center"><code>\Gamma</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\delta$</td>
+<td style="text-align:center"><code>\delta</code></td>
+<td style="text-align:center">$\Delta$</td>
+<td style="text-align:center"><code>\Delta</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\epsilon$</td>
+<td style="text-align:center"><code>\epsilon</code></td>
+<td style="text-align:center">$\Epsilon$</td>
+<td style="text-align:center"><code>\Epsilon</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\mu$</td>
+<td style="text-align:center"><code>\mu</code></td>
+<td style="text-align:center">$\Mu$</td>
+<td style="text-align:center"><code>\Mu</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\varepsilon$</td>
+<td style="text-align:center"><code>\varepsilon</code></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">$\zeta$</td>
+<td style="text-align:center"><code>\zeta</code></td>
+<td style="text-align:center">$\Zeta$</td>
+<td style="text-align:center"><code>\Zeta</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\eta$</td>
+<td style="text-align:center"><code>\eta</code></td>
+<td style="text-align:center">$\Eta$</td>
+<td style="text-align:center"><code>\Eta</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\theta$</td>
+<td style="text-align:center"><code>\theta</code></td>
+<td style="text-align:center">$\Theta$</td>
+<td style="text-align:center"><code>\Theta</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\vartheta$</td>
+<td style="text-align:center"><code>\vartheta</code></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">$\pi$</td>
+<td style="text-align:center"><code>\pi</code></td>
+<td style="text-align:center">$\Pi$</td>
+<td style="text-align:center"><code>\Pi</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\phi$</td>
+<td style="text-align:center"><code>\phi</code></td>
+<td style="text-align:center">$\Phi$</td>
+<td style="text-align:center"><code>\Phi</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\psi$</td>
+<td style="text-align:center"><code>\psi</code></td>
+<td style="text-align:center">$\Psi$</td>
+<td style="text-align:center"><code>\Psi</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\omega$</td>
+<td style="text-align:center"><code>\omega</code></td>
+<td style="text-align:center">$\Omega$</td>
+<td style="text-align:center"><code>\Omega</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\rho$</td>
+<td style="text-align:center"><code>\rho</code></td>
+<td style="text-align:center">$\Rho$</td>
+<td style="text-align:center"><code>\Rho</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\sigma$</td>
+<td style="text-align:center"><code>\sigma</code></td>
+<td style="text-align:center">$\Sigma$</td>
+<td style="text-align:center"><code>\Sigma</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\xi$</td>
+<td style="text-align:center"><code>\xi</code></td>
+<td style="text-align:center">$\Xi$</td>
+<td style="text-align:center"><code>\Xi</code></td>
+</tr>
+<tr>
+<td style="text-align:center">$\partial$</td>
+<td style="text-align:center"><code>\partial</code></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="10-字体"><a href="#10-字体" class="headerlink" title="10. 字体"></a>10. 字体</h2><ol>
+<li><strong>黑板粗体</strong>（Blackboard bold），符号：<code>\mathbb&#123;内容&#125;</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字体</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通</td>
+<td style="text-align:center">abcd</td>
+<td style="text-align:center"><code>abcd</code></td>
+</tr>
+<tr>
+<td style="text-align:center">普通数学形式</td>
+<td style="text-align:center">$abcd$</td>
+<td style="text-align:center"><script type="math/tex">abcd</script></td>
+</tr>
+<tr>
+<td style="text-align:center">小写</td>
+<td style="text-align:center">$\mathbb{abcd}$</td>
+<td style="text-align:center"><script type="math/tex">\mathbb{abcd}</script></td>
+</tr>
+<tr>
+<td style="text-align:center">大写</td>
+<td style="text-align:center">$\mathbb{ABCD}$</td>
+<td style="text-align:center"><script type="math/tex">\mathbb{ABCD}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><strong>正粗体</strong>，符号：<code>\mathbf&#123;内容&#125;</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字体</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通</td>
+<td style="text-align:center">abcd</td>
+<td style="text-align:center"><code>abcd</code></td>
+</tr>
+<tr>
+<td style="text-align:center">普通加粗</td>
+<td style="text-align:center"><strong>abcd</strong></td>
+<td style="text-align:center"><code>**abcd**</code></td>
+</tr>
+<tr>
+<td style="text-align:center">小写</td>
+<td style="text-align:center">$\mathbf{abcd}$</td>
+<td style="text-align:center"><script type="math/tex">\mathbf{abcd}</script></td>
+</tr>
+<tr>
+<td style="text-align:center">大写</td>
+<td style="text-align:center">$\mathbf{ABCD}$</td>
+<td style="text-align:center"><script type="math/tex">\mathbf{ABCD}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><strong>斜体数字</strong>，符号：<code>\mathit&#123;内容&#125;</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字体</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通</td>
+<td style="text-align:center">3.1415</td>
+<td style="text-align:center"><code>3.1415</code></td>
+</tr>
+<tr>
+<td style="text-align:center">普通斜体</td>
+<td style="text-align:center"><em>3.1415</em></td>
+<td style="text-align:center"><code>*3.1415*</code></td>
+</tr>
+<tr>
+<td style="text-align:center">斜体</td>
+<td style="text-align:center">$\mathit{3.1415}$</td>
+<td style="text-align:center"><script type="math/tex">\mathit{3.1415}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><strong>罗马体</strong>，符号：<code>\mathrm&#123;内容&#125;</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字体</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通</td>
+<td style="text-align:center">ABCD</td>
+<td style="text-align:center"><code>ABCD</code></td>
+</tr>
+<tr>
+<td style="text-align:center">普通数学形式</td>
+<td style="text-align:center">$ABCD$</td>
+<td style="text-align:center"><script type="math/tex">ABCD</script></td>
+</tr>
+<tr>
+<td style="text-align:center">罗马体</td>
+<td style="text-align:center">$\mathrm{ABCD}$</td>
+<td style="text-align:center"><script type="math/tex">\mathrm{ABCD}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><strong>哥特体</strong>，符号：<code>mathfrak&#123;内容&#125;</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字体</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通</td>
+<td style="text-align:center">abcd</td>
+<td style="text-align:center"><code>abcd</code></td>
+</tr>
+<tr>
+<td style="text-align:center">普通数学形式</td>
+<td style="text-align:center">$abcd$</td>
+<td style="text-align:center"><script type="math/tex">abcd</script></td>
+</tr>
+<tr>
+<td style="text-align:center">小写</td>
+<td style="text-align:center">$\mathfrak{abcd}$</td>
+<td style="text-align:center"><script type="math/tex">\mathfrak{abcd}</script></td>
+</tr>
+<tr>
+<td style="text-align:center">大写</td>
+<td style="text-align:center">$\mathfrak{ABCD}$</td>
+<td style="text-align:center"><script type="math/tex">\mathfrak{ABCD}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><strong>手写体</strong>，符号：<code>\mathcal&#123;内容&#125;</code></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字体</th>
+<th style="text-align:center">显示效果</th>
+<th style="text-align:center">表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通</td>
+<td style="text-align:center">abcd</td>
+<td style="text-align:center"><code>abcd</code></td>
+</tr>
+<tr>
+<td style="text-align:center">普通数学形式</td>
+<td style="text-align:center">$abcd$</td>
+<td style="text-align:center"><script type="math/tex">abcd</script></td>
+</tr>
+<tr>
+<td style="text-align:center">小写</td>
+<td style="text-align:center">$\mathcal{abcd}$</td>
+<td style="text-align:center"><script type="math/tex">\mathcal{abcd}</script></td>
+</tr>
+<tr>
+<td style="text-align:center">大写</td>
+<td style="text-align:center">$\mathcal{ABCD}$</td>
+<td style="text-align:center"><script type="math/tex">\mathcal{ABCD}</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Markdown 语法之数学公式</p><p><a href="https://shink.github.io/2020/02/02/markdown-math/">https://shink.github.io/2020/02/02/markdown-math/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Ji Yuanhao</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-02-02</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-10-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Markdown/">Markdown</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=633966102c87310019e279ac&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat_donate_qrcode.jpg" alt="微信"></span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay_donate_qrcode.jpg" alt="支付宝"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/02/02/cf-workers-redirect/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Cloudflare Workers 实现301网址跳转</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/02/02/markdown-usage/"><span class="level-item">Markdown 语法一揽子计划（超详细）</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "d876cd39dd2f94842e6a666a963beb5c",
+            repo: "gitalk-comments",
+            owner: "shink",
+            clientID: "4a4840c48682210d69be",
+            clientSecret: "c7b88354735964f6d5489fbaa68c3ea0a3536504",
+            admin: ["shink"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 Ji Yuanhao</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/shink/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

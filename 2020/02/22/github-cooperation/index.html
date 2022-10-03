@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>GitHub 多人队伍合作详细教程 - 深刻的技术博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="深刻的技术博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="深刻的技术博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="本文将分场景详细讲述如何通过 GitHub 实现多人队伍协同开发  示例中所使用的仓库是 shink&amp;#x2F;cooperation-test，欢迎加入，一起熟练 Git 的使用"><meta property="og:type" content="blog"><meta property="og:title" content="GitHub 多人队伍合作详细教程"><meta property="og:url" content="https://shink.github.io/2020/02/22/github-cooperation/"><meta property="og:site_name" content="深刻的技术博客"><meta property="og:description" content="本文将分场景详细讲述如何通过 GitHub 实现多人队伍协同开发  示例中所使用的仓库是 shink&amp;#x2F;cooperation-test，欢迎加入，一起熟练 Git 的使用"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/1.jpg"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/2.jpg"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/3.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/4.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/5.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/6.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/7.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/8.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/9.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/10.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/11.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/12.png"><meta property="article:published_time" content="2020-02-22T10:42:20.000Z"><meta property="article:modified_time" content="2022-10-02T14:57:00.609Z"><meta property="article:author" content="Ji Yuanhao"><meta property="article:tag" content="Git"><meta property="article:tag" content="GitHub"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/1.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shink.github.io/2020/02/22/github-cooperation/"},"headline":"GitHub 多人队伍合作详细教程","image":["https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/1.jpg","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/2.jpg","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/3.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/4.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/5.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/6.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/7.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/8.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/9.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/10.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/11.png","https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/12.png"],"datePublished":"2020-02-22T10:42:20.000Z","dateModified":"2022-10-02T14:57:00.609Z","author":{"@type":"Person","name":"Ji Yuanhao"},"publisher":{"@type":"Organization","name":"深刻的技术博客","logo":{"@type":"ImageObject","url":"https://shink.github.io/img/favicon.svg"}},"description":"本文将分场景详细讲述如何通过 GitHub 实现多人队伍协同开发  示例中所使用的仓库是 shink&#x2F;cooperation-test，欢迎加入，一起熟练 Git 的使用"}</script><link rel="canonical" href="https://shink.github.io/2020/02/22/github-cooperation/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="View on GitHub" href="https://github.com/shink/shink.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-02-22T10:42:20.000Z" title="2020/2/22 18:42:20">2020-02-22</time>发表</span><span class="level-item"><time dateTime="2022-10-02T14:57:00.609Z" title="2022/10/2 22:57:00">2022-10-02</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Git/">Git</a></span><span class="level-item">19 分钟读完 (大约2822个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">GitHub 多人队伍合作详细教程</h1><div class="content"><p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/1.jpg" width="900">
+</p>
+
+<p>本文将分场景详细讲述如何通过 GitHub 实现多人队伍协同开发</p>
+<blockquote>
+<p>示例中所使用的仓库是 <a target="_blank" rel="noopener" href="https://github.com/shink/cooperation-test">shink/cooperation-test</a>，欢迎加入，一起熟练 Git 的使用</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="开发规范"><a href="#开发规范" class="headerlink" title="开发规范"></a>开发规范</h2><h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>为了规范开发、保持 commit 历史、方便后期维护，Git 的分支管理是必不可少的工作</p>
+<p>分支管理示例：</p>
+<ul>
+<li><code>main</code> 分支：<ul>
+<li>主分支，最终的、稳定的、经过测试没有 bug 的、可部署于生产环境的分支</li>
+<li>只能由 <code>release</code> 和 <code>hotfix</code> 分支合并，任何情况下都不能直接修改代码</li>
+</ul>
+</li>
+<li><code>dev</code> 分支：<ul>
+<li>主要开发分支，贯穿于整个项目的生命周期</li>
+<li>始终保持最新版本，功能模块开发任务交给 <code>feature</code> 分支，测试任务交给 <code>release</code> 分支</li>
+</ul>
+</li>
+<li><code>hotfix</code> 分支：<ul>
+<li>热修复分支，当 <code>main</code> 分支部署到生产环境后发生紧急状况，需要及时处理时，该分支负责热修复，即在保证应用不下线的条件下，对 bug 进行紧急修复</li>
+<li>该分支以 <code>main</code> 分支为基线，修复 bug 后，合并到 <code>main</code> 分支部署上线，同时也合并到 <code>dev</code> 分支保持最新进度</li>
+<li>命名规则： <code>hotfix/NAME</code> 或 <code>hotfix-NAME</code></li>
+</ul>
+</li>
+<li><code>feature</code> 分支：<ul>
+<li>功能模块开发分支，对应于一个特定的功能模块</li>
+<li>该分支以 <code>dev</code> 分支为基线，完成开发工作后再合并到 <code>dev</code> 分支</li>
+<li>命名规则：<code>feature/NAME</code> 或 <code>feature-NAME</code></li>
+</ul>
+</li>
+<li><code>release</code> 分支：<ul>
+<li>预发布分支，在发布正式版本前进行全面测试和修复</li>
+<li>该分支以 <code>dev</code> 分支为基线进行全面测试，若发生 bug 则可直接在该分支修复并提交</li>
+<li>经过测试没有问题之后，合并到 <code>main</code> 分支部署上线，同时也合并到 <code>dev</code> 分支保持最新进度</li>
+<li>命名规则：<code>release/NAME</code> 或 <code>release-NAME</code></li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">分支名称</th>
+<th style="text-align:center">分支职责</th>
+<th style="text-align:center">基线分支</th>
+<th style="text-align:center">合并分支</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>main</code></td>
+<td style="text-align:center">主分支</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>dev</code></td>
+<td style="text-align:center">开发分支</td>
+<td style="text-align:center">main</td>
+<td style="text-align:center">-</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>hotfix</code></td>
+<td style="text-align:center">热修复分支</td>
+<td style="text-align:center">main</td>
+<td style="text-align:center">main, dev</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>feature</code></td>
+<td style="text-align:center">功能模块开发分支</td>
+<td style="text-align:center">dev</td>
+<td style="text-align:center">dev</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>release</code></td>
+<td style="text-align:center">预发布分支</td>
+<td style="text-align:center">dev</td>
+<td style="text-align:center">main, dev</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>总结：</p>
+<ul>
+<li><code>main</code> 分支和 <code>dev</code> 分支都贯穿于整个项目的生命周期</li>
+<li><code>hotfix</code>、<code>feature</code>、<code>release</code> 分支都是临时分支，分别负责热修复、功能模块开发、预发布</li>
+</ul>
+<p>下图很好地展示了在时间轴上各分支的职责划分情况</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/2.jpg" width="800">
+</p>
+
+<h3 id="Commit-message"><a href="#Commit-message" class="headerlink" title="Commit message"></a>Commit message</h3><p>每次 commit 到本地库时，必须添加 commit message，以对本次提交做出说明</p>
+<p>在团队合作时，commit message 的书写格式也应当遵守相应规范，清晰明了的 commit message 有利于快速定位提交、自动生成 change log 文档</p>
+<p>下图是 Angular 规范</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/3.png" width="750">
+</p>
+
+<p>具体的规范说明可参考阮一峰老师的博客：<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html">Commit message 和 Change log 编写指南</a></p>
+<h2 id="任务划分"><a href="#任务划分" class="headerlink" title="任务划分"></a>任务划分</h2><p>团队合作中，合理的划分任务有助于项目顺利开展</p>
+<p>下面以一个二人队伍为例（队长 A 和队员 B），多人队伍的话其他队员操作同队员 B</p>
+<p>队长 A 的任务：</p>
+<ul>
+<li>统一规范，包括命名规范、文档规范等</li>
+<li>review 代码，维护 issue 和 PR，管理 <code>main</code> 分支和 <code>dev</code> 分支</li>
+<li>承担部分开发任务</li>
+</ul>
+<p>队员 B 的任务：</p>
+<ul>
+<li>承担主要开发任务，完成系统功能</li>
+</ul>
+<h2 id="初始状态"><a href="#初始状态" class="headerlink" title="初始状态"></a>初始状态</h2><p>以队长 A 的仓库为基准，首先队员 B Fork 队长 A 的项目仓库</p>
+<p>假设仓库初始状态为：<code>main</code> 分支和 <code>dev</code> 分支下分别只有 <code>README.md</code> 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌── main: README.md</span><br><span class="line">│</span><br><span class="line">└── dev: README.md</span><br></pre></td></tr></table></figure>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/4.png" width="850">
+</p>
+
+<p>开始时首先 clone 远程仓库到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/user/repo.git</span><br></pre></td></tr></table></figure>
+<p>clone 完之后，可以看到本地仓库中只有 <code>main</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line"></span><br><span class="line">* main</span><br></pre></td></tr></table></figure>
+<p>通过下列命令查看所有分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line">* main</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/main</span><br><span class="line">  remotes/origin/dev</span><br><span class="line">  remotes/origin/main</span><br></pre></td></tr></table></figure>
+<p>可以看到远程仓库中虽然有 <code>dev</code> 分支，但是本地仓库中并没有分支与远程仓库的 <code>dev</code> 分支关联</p>
+<p>通过下列命令在本地仓库中创建并切换到 <code>dev</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev origin/dev</span><br></pre></td></tr></table></figure>
+<p>此时，在本地分支中就可以看到 <code>dev</code> 分支了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line"></span><br><span class="line">* dev</span><br><span class="line">  main</span><br></pre></td></tr></table></figure>
+<h2 id="场景一：队员与主仓版本保持同步"><a href="#场景一：队员与主仓版本保持同步" class="headerlink" title="场景一：队员与主仓版本保持同步"></a>场景一：队员与主仓版本保持同步</h2><p>在开始工作前，须先拉取当前当前分支的最新版本，保证代码是最新版本</p>
+<p>以队员 B 为例：</p>
+<p>添加主仓的远程仓库地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://github.com/captain_a/project.git</span><br></pre></td></tr></table></figure>
+<p>查看当前仓库所连接的远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+<p>此时，当前仓库所连接的远程仓库为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">origin    https://github.com/member_b/project.git (fetch)</span><br><span class="line">origin    https://github.com/member_b/project.git (push)</span><br><span class="line">upstream    https://github.com/captain_a/project.git (fetch)</span><br><span class="line">upstream    https://github.com/captain_a/project.git (push)</span><br></pre></td></tr></table></figure>
+<p>切换到 <code>dev</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+<p>获取 upstream 的最新内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch upstream dev</span><br></pre></td></tr></table></figure>
+<p>合并</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge upstream/dev</span><br></pre></td></tr></table></figure>
+<p>至此，<code>dev</code> 分支就包含最新版本代码了（<code>main</code> 分支同理）</p>
+<h2 id="场景二：队员开发特定功能模块"><a href="#场景二：队员开发特定功能模块" class="headerlink" title="场景二：队员开发特定功能模块"></a>场景二：队员开发特定功能模块</h2><blockquote>
+<p>在开发阶段，应当尽量避免发生冲突，同时保持 commit 历史的干净整洁，善用 <code>git rebase</code> 命令可以保证 commit 历史更加清爽，rebase 的同时还是可以 squash，将逻辑相似的多个 commit 合并到一个 commit，并附上描述性更强的 commit message， 这样 commit 历史就会非常清晰、一目了然了</p>
+</blockquote>
+<p>以队员 B 开发登录模块为例</p>
+<p>在本地创建 <code>feature/login_module</code> 分支，首先切换到 <code>dev</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+<p>以 <code>dev</code> 分支为基线，创建 <code>feature/login_module</code> 分支，并切换到该分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b feature/login_module</span><br></pre></td></tr></table></figure>
+<p>查看各分支情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch -v</span><br><span class="line"></span><br><span class="line">  dev                  333e2b6 Init README.md</span><br><span class="line">* feature/login_module 333e2b6 Init README.md</span><br><span class="line">  main                 333e2b6 Init README.md</span><br></pre></td></tr></table></figure>
+<p>将该分支 push 到远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature/login_module:feature/login_module</span><br></pre></td></tr></table></figure>
+<p>假设队员 B 完成了开发任务，创建了 <code>login_module.txt</code> 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;login module finished&quot;</span> &gt; login_module.txt</span><br></pre></td></tr></table></figure>
+<p>add 到暂存区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add login_module.txt</span><br></pre></td></tr></table></figure>
+<p>commit 到本地库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;login module finished&quot;</span></span><br></pre></td></tr></table></figure>
+<p>push 到远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin feature/login_module</span><br></pre></td></tr></table></figure>
+<p>在 GitHub 页面可以看到提交成功了</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/5.png" width="900">
+</p>
+
+<h2 id="场景三：队员提交-PR，请求与主仓合并"><a href="#场景三：队员提交-PR，请求与主仓合并" class="headerlink" title="场景三：队员提交 PR，请求与主仓合并"></a>场景三：队员提交 PR，请求与主仓合并</h2><p>队员 B 已经在自己的仓库中完成了功能模块的开发，但并没有合并到队长 A 的仓库中，因此队长 A 目前还无法看到队员 B 所做的工作</p>
+<p>队员可以提交 PR，即 Pull Request，请求与主仓进行合并</p>
+<blockquote>
+<p>在提交 PR 时，PR 中尽量只包含一个 commit</p>
+</blockquote>
+<p>此时，队员 B 可以选择先将 <code>feature</code> 分支合并到 <code>dev</code> 分支，再提交 PR，请求合并到主仓的 <code>dev</code> 分支，即</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">member_b:dev -&gt; captain_a:dev</span><br></pre></td></tr></table></figure>
+<p>也可以请求将 <code>feature</code> 分支合并到主仓的 <code>dev</code> 分支，即</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">member_b:feature -&gt; captain_a:dev</span><br></pre></td></tr></table></figure>
+<p>还可以请求将 <code>feature</code> 分支合并到主仓的 <code>feature</code> 分支，即</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">member_b:feature -&gt; captain_a:feature</span><br></pre></td></tr></table></figure>
+<p>这主要取决于主仓是否需要保存临时分支，以及谁负责解决冲突</p>
+<p>下面以第一种情况进行演示，即队员 B 先将 <code>feature</code> 分支合并到 <code>dev</code> 分支，再提交 PR，请求合并到主仓的 <code>dev</code> 分支</p>
+<p>首先切换到 <code>dev</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+<p>合并 <code>feature</code> 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge feature --no-ff</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>merge 时推荐加上 <code>--no-ff</code> 选项，避免 <code>feature</code> 分支扰乱 <code>dev</code> 分支的 commit 历史</p>
+</blockquote>
+<p>若加上了 <code>--no-ff</code> 选项，会自动创建一个 merge 的 commit 记录</p>
+<p>输入 commit 信息后，按 <code>Ctrl + O</code> 将 commit 信息保存到 <code>MERGE_MSG</code> 文件中，<code>Ctrl + X</code> 退出</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/6.png" width="850">
+</p>
+
+<p>push 到远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
+<p>可以看到清爽的 commit 历史：</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/7.png" width="850">
+</p>
+
+<p>接下来就是提交 PR 阶段了</p>
+<p>首先队员 B 在自己的 GitHub 仓库中点击 <code>New pull request</code> 按钮创建 PR</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/8.png" width="900">
+</p>
+
+<p>选择分支，然后点击 <code>Create pull request</code> 按钮</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/9.png" width="900">
+</p>
+
+<p>填写 title 和 comment后，点击 <code>Create pull request</code> 按钮即可提交 PR</p>
+<p>接下来，队长 A 需要打开该 PR 并 review 代码，如果没有问题并且没有冲突则可允许 merge</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/10.png" width="900">
+</p>
+
+<p>其中，Merge pull resquest 有三个选项：</p>
+<ul>
+<li><code>Create a merge commit</code> ：表示把这个 PR 作为一个分支合并，并保留分支上的所有提交记录</li>
+<li><code>Squash and merge</code> ：表示只为这次合并保留一个提交记录</li>
+<li><code>Rebase and merge</code> ：找到两个分支共同的祖先，然后在当前分支上合并从共同祖先到现在的所有 commit</li>
+</ul>
+<p>三个选项的不同点：</p>
+<ul>
+<li><code>Create a merge commit</code> ：不能保持 main 分支干净，但是保留了所有的 commit history，当 PR 中 commit 次数较多时不推荐此方式</li>
+<li><code>Squash and merge</code> ：也可以保持 main 分支干净，但是 main 中 author 都是 maintainer，而不是原 author</li>
+<li><code>Rebase and merge</code> ：可以尽可能保持 main 分支干净整洁，并且易于识别 author</li>
+</ul>
+<p>这里选择 <code>Rebase and merge</code></p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/11.png" width="900">
+</p>
+
+<p>merge 完成后该 PR 就自动 closed 了，合并工作完成</p>
+<p>队长更新本地仓库，在 <code>dev</code> 分支下，拉取最新代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin dev</span><br></pre></td></tr></table></figure>
+<p>此时，主仓中的 commit 历史如图所示：</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/02/github-cooperation/12.png" width="900">
+</p>
+
+<h2 id="场景四：合并时出现冲突"><a href="#场景四：合并时出现冲突" class="headerlink" title="场景四：合并时出现冲突"></a>场景四：合并时出现冲突</h2><p>冲突产生有两种情况：</p>
+<ul>
+<li>两个分支都修改了同一文件（不管什么地方）</li>
+<li>两个分支都修改了同一文件的名称</li>
+</ul>
+<p>对于产生的冲突，需要手动修改冲突代码</p>
+<p>解决冲突之后，还需要 add 并 commit</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add CONFLICT_FILE</span><br><span class="line"></span><br><span class="line">git commit -m &quot;fix conflict&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="场景五：版本回退"><a href="#场景五：版本回退" class="headerlink" title="场景五：版本回退"></a>场景五：版本回退</h2><p>有时候当前版本可能有许多 bug，不得不重新从头开始工作，这时候就需要先回退到上一版本</p>
+<p><code>git reset</code> 命令可以将当前 branch 回退到之前某一个 commit 节点</p>
+<p>回退到上一版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD^</span><br></pre></td></tr></table></figure>
+<p>其中，<code>HEAD^</code> 表示上一个版本，<code>HEAD^^</code> 表示上上个版本，<code>HEAD~100</code> 表示前 100 个版本</p>
+<p>另外，还可以使用以下命令回退到指定版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset 版本号</span><br></pre></td></tr></table></figure>
+<p>版本号可以通过以下命令查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline</span><br></pre></td></tr></table></figure>
+<p>另外，<code>git reset</code> 还有三个选项：</p>
+<ul>
+<li><code>--soft</code>: 仅回退本地库中的内容，相当于撤销 <code>git commit</code></li>
+<li><code>--mixed</code>: （默认方式）同时回退本地库和暂存区内容，相当于进一步撤销 <code>git add</code></li>
+<li><code>--hard</code>: 同时回退本地库、暂存区和工作区内容，相当于进一步撤销本地仓库文件夹中的改动</li>
+</ul>
+<p><strong>注意</strong>：回退版本后，日志中就会删除回退前版本的 commit 记录，如果想查看回退前的版本记录，可以使用如下命令查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+</div><div class="article-licensing box"><div class="licensing-title"><p>GitHub 多人队伍合作详细教程</p><p><a href="https://shink.github.io/2020/02/22/github-cooperation/">https://shink.github.io/2020/02/22/github-cooperation/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Ji Yuanhao</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-02-22</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-10-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Git/">Git</a><a class="link-muted mr-2" rel="tag" href="/tags/GitHub/">GitHub</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=633966102c87310019e279ac&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat_donate_qrcode.jpg" alt="微信"></span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay_donate_qrcode.jpg" alt="支付宝"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/03/16/github-mirror/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">通过 GitHub Actions 将 GitHub 仓库自动备份到 Gitee、GitLab</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/02/21/docker-introduce/"><span class="level-item">Docker 入门及常用命令</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "179d5f107be745edb418964f41964ee4",
+            repo: "gitalk-comments",
+            owner: "shink",
+            clientID: "4a4840c48682210d69be",
+            clientSecret: "c7b88354735964f6d5489fbaa68c3ea0a3536504",
+            admin: ["shink"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 Ji Yuanhao</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/shink/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

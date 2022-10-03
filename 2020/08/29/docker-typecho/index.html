@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>通过 Docker 搭建 Typecho 详细教程 - 深刻的技术博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="深刻的技术博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="深刻的技术博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="下面以 Centos 7 为例"><meta property="og:type" content="blog"><meta property="og:title" content="通过 Docker 搭建 Typecho 详细教程"><meta property="og:url" content="https://shink.github.io/2020/08/29/docker-typecho/"><meta property="og:site_name" content="深刻的技术博客"><meta property="og:description" content="下面以 Centos 7 为例"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/1.png"><meta property="og:image" content="https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/2.png"><meta property="article:published_time" content="2020-08-29T04:00:42.000Z"><meta property="article:modified_time" content="2022-10-02T14:53:45.606Z"><meta property="article:author" content="Ji Yuanhao"><meta property="article:tag" content="Docker"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/1.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shink.github.io/2020/08/29/docker-typecho/"},"headline":"通过 Docker 搭建 Typecho 详细教程","image":["https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/1.png","https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/2.png"],"datePublished":"2020-08-29T04:00:42.000Z","dateModified":"2022-10-02T14:53:45.606Z","author":{"@type":"Person","name":"Ji Yuanhao"},"publisher":{"@type":"Organization","name":"深刻的技术博客","logo":{"@type":"ImageObject","url":"https://shink.github.io/img/favicon.svg"}},"description":"下面以 Centos 7 为例"}</script><link rel="canonical" href="https://shink.github.io/2020/08/29/docker-typecho/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="View on GitHub" href="https://github.com/shink/shink.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-08-29T04:00:42.000Z" title="2020/8/29 12:00:42">2020-08-29</time>发表</span><span class="level-item"><time dateTime="2022-10-02T14:53:45.606Z" title="2022/10/2 22:53:45">2022-10-02</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Docker/">Docker</a></span><span class="level-item">7 分钟读完 (大约1111个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">通过 Docker 搭建 Typecho 详细教程</h1><div class="content"><p>下面以 Centos 7 为例</p>
+<span id="more"></span>
+<h2 id="1-安装-Docker-和-Docker-Compose"><a href="#1-安装-Docker-和-Docker-Compose" class="headerlink" title="1. 安装 Docker 和 Docker Compose"></a>1. 安装 Docker 和 Docker Compose</h2><h3 id="1-1-安装-Docker"><a href="#1-1-安装-Docker" class="headerlink" title="1.1 安装 Docker"></a>1.1 安装 Docker</h3><p>安装依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+<p>设置yum源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p>查看所有仓库中所有docker版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list docker-ce --showduplicates | sort -r</span><br></pre></td></tr></table></figure>
+<p>安装docker</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce</span><br></pre></td></tr></table></figure>
+<p>设置开机启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
+<p>启动 Docker</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+<p>查看版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<p>测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-安装-Docker-Compose"><a href="#1-2-安装-Docker-Compose" class="headerlink" title="1.2 安装 Docker Compose"></a>1.2 安装 Docker Compose</h3><p>下载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m) &gt; /usr/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>赋予执行权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>查看版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+<h2 id="2-构建镜像"><a href="#2-构建镜像" class="headerlink" title="2. 构建镜像"></a>2. 构建镜像</h2><p>这里使用如下三个镜像</p>
+<ul>
+<li>nginx</li>
+<li>tsund/php:7.2.3-fpm</li>
+<li>mysql:5.7</li>
+</ul>
+<p>其中 <code>nginx</code> 为官方最新镜像，<code>mysql:5.7</code> 为官方 5.7 镜像，<code>tsund/php:7.2.3-fpm</code> 的 Dockerfile 如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> php:<span class="number">7.2</span>.<span class="number">3</span>-fpm</span><br><span class="line"><span class="keyword">LABEL</span><span class="language-bash"> maintainer=<span class="string">&quot;tsund&quot;</span> \</span></span><br><span class="line"><span class="language-bash">      email=<span class="string">&quot;tsund@qq.com&quot;</span> \</span></span><br><span class="line"><span class="language-bash">      version=<span class="string">&quot;7.2.3&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; docker-php-ext-install pdo_mysql \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;output_buffering = 4096&quot;</span> &gt; /usr/local/etc/php/conf.d/php.ini</span></span><br></pre></td></tr></table></figure>
+<p>在官方镜像的基础上，添加了 <code>PDO_MYSQL</code>（如果使用 MySQL 作为 Typecho 的数据库，则需安装此扩展），并设置 buffer 为 4kb，即一个内存页</p>
+<h2 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. 配置</h2><p>新建 <code>blog</code> 文件夹，其目录结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── docker-compose.yml      Docker Compose 配置文件</span><br><span class="line">├── mysql                   mysql 持久化目录</span><br><span class="line">├── mysql.env               mysql 配置信息</span><br><span class="line">├── nginx                   nginx 配置文件的持久化目录</span><br><span class="line">├── ssl                     ssl 证书目录</span><br><span class="line">└── typecho                 站点根目录</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-配置-docker-compose-yml"><a href="#3-1-配置-docker-compose-yml" class="headerlink" title="3.1 配置 docker-compose.yml"></a>3.1 配置 docker-compose.yml</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">nginx:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;80:80&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;443:443&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./typecho:/var/www/html</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./ssl:/var/www/ssl</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./nginx:/etc/nginx/conf.d</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">php</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">web</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">php:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">tsund/php:7.2.3-fpm</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;9000:9000&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./typecho:/var/www/html</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">web</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./mysql/data:/var/lib/mysql</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./mysql/logs:/var/log/mysql</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./mysql/conf:/etc/mysql/conf.d</span></span><br><span class="line">    <span class="attr">env_file:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mysql.env</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">web</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">web:</span></span><br></pre></td></tr></table></figure>
+<p>其中</p>
+<ul>
+<li><code>version</code> 指定 docker-compose 版本</li>
+<li><code>image</code> 指定镜像名称</li>
+<li><code>volumes</code> 指定文件挂载映射</li>
+<li><code>ports</code> 指定端口映射</li>
+<li><code>depends_on</code> 指定服务启动时的先后顺序，指定的服务会先于当前服务启动</li>
+<li><code>networks</code> 指定容器连接的虚拟网络，连接在同一网络的服务可以使用服务名进行通信。version 3 不推荐使用 <code>--link</code>，使用 <code>network</code> 替代其功能，也更方便管理</li>
+<li>一级标签的 <code>networks</code> 是虚拟网络的定义，可以指定网络类型和参数等，这里使用了默认的网络类型，参数部分留空即可</li>
+</ul>
+<h3 id="3-2-配置-nginx"><a href="#3-2-配置-nginx" class="headerlink" title="3.2 配置 nginx"></a>3.2 配置 nginx</h3><p>在 <code>./nginx</code> 目录下新建 <code>default.conf</code> 文件，参考内容如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  tsund.cn;</span><br><span class="line">    <span class="attribute">rewrite</span><span class="regexp"> ^(.*)</span> https://tsund.cn<span class="variable">$1</span> <span class="literal">permanent</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl http2 reuseport;</span><br><span class="line">    <span class="attribute">server_name</span> tsund.cn;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">root</span> /var/www/html;</span><br><span class="line">    <span class="attribute">index</span> index.php;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/typecho_access.log main;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_certificate</span> /var/www/ssl/tsund_cn.crt;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span> /var/www/ssl/tsund_cn.key;</span><br><span class="line">    <span class="attribute">ssl_session_cache</span> shared:SSL:<span class="number">1m</span>;</span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">    <span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">if</span> (!-e <span class="variable">$request_filename</span>) &#123;</span><br><span class="line">        <span class="attribute">rewrite</span><span class="regexp"> ^(.*)$</span> /index.php<span class="variable">$1</span> <span class="literal">last</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> <span class="regexp">~ .*\.php(\/.*)*$</span> &#123;</span><br><span class="line">        <span class="attribute">fastcgi_pass</span>   php:<span class="number">9000</span>;</span><br><span class="line">        <span class="attribute">fastcgi_index</span>  index.php;</span><br><span class="line">        <span class="attribute">fastcgi_param</span>  PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">        <span class="attribute">fastcgi_param</span>  PATH_TRANSLATED <span class="variable">$document_root</span><span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">        <span class="attribute">fastcgi_param</span>  SCRIPT_NAME <span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        <span class="attribute">fastcgi_param</span>  SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        <span class="attribute">include</span>        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-配置-mysql"><a href="#3-3-配置-mysql" class="headerlink" title="3.3 配置 mysql"></a>3.3 配置 mysql</h3><p><code>mysql.env</code> 参考内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># MySQL的root用户默认密码，这里自行更改</span><br><span class="line">MYSQL_ROOT_PASSWORD=password</span><br><span class="line"># MySQL镜像创建时自动创建的数据库名称</span><br><span class="line">MYSQL_DATABASE=blog</span><br><span class="line"># MySQL镜像创建时自动创建的用户名</span><br><span class="line">MYSQL_USER=shenke</span><br><span class="line"># MySQL镜像创建时自动创建的用户密码</span><br><span class="line">MYSQL_PASSWORD=password</span><br><span class="line"># 时区</span><br><span class="line">TZ=Asia/Shanghai</span><br></pre></td></tr></table></figure>
+<h2 id="4-安装"><a href="#4-安装" class="headerlink" title="4. 安装"></a>4. 安装</h2><h3 id="4-1-编排容器"><a href="#4-1-编排容器" class="headerlink" title="4.1 编排容器"></a>4.1 编排容器</h3><p>在 <code>blog</code> 目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>查看进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose ps</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-安装-Typecho"><a href="#4-2-安装-Typecho" class="headerlink" title="4.2 安装 Typecho"></a>4.2 安装 Typecho</h3><p>编排成功后，浏览器输入 URL，进入 typecho 安装页面</p>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/1.png" width=800>
+</p>
+
+<blockquote>
+<p>需注意的是，数据库地址需填入 mysql 镜像的名称（与 <code>docker-compose.yml</code> 中的配置相对应），数据库名与 <code>mysql.env</code> 中创建的数据库名一致</p>
+</blockquote>
+<p align="center">
+    <img src="https://gitee.com/tsund/data/raw/master/blog/2020/08/docker-typecho/2.png" width=800>
+</p>
+
+<blockquote>
+<p>若出现以上页面，只需按照提示在 <code>./typecho</code> 目录下新建 <code>config.inc.php</code> 文件，并写入内容即可</p>
+</blockquote>
+<h2 id="5-博客迁移"><a href="#5-博客迁移" class="headerlink" title="5. 博客迁移"></a>5. 博客迁移</h2><p>迁移时只需将整个 <code>blog</code> 目录打包传输至安装有 Docker 和 Docker Compose 的新服务器，然后重新编排容器即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<h2 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.anguiao.com/archives/build-blog-with-docker.html">使用 Docker 搭建 Typecho 个人博客</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://pjf.name/blogs/install-typecho-by-docker.html">Docker安装typecho</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/93839317">使用Docker搭建Caddy+Typecho个人博客网站</a></p>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>通过 Docker 搭建 Typecho 详细教程</p><p><a href="https://shink.github.io/2020/08/29/docker-typecho/">https://shink.github.io/2020/08/29/docker-typecho/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Ji Yuanhao</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-08-29</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-10-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Docker/">Docker</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=633966102c87310019e279ac&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat_donate_qrcode.jpg" alt="微信"></span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay_donate_qrcode.jpg" alt="支付宝"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/09/16/docker-chevereto/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">通过 Docker 搭建 Chevereto 图床</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/08/20/ssh-problem/"><span class="level-item">SSH 免密登录（设置后仍需输入密码的原因及解决方法）</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "d5b7ad1fde4c14818de47c986fd7c387",
+            repo: "gitalk-comments",
+            owner: "shink",
+            clientID: "4a4840c48682210d69be",
+            clientSecret: "c7b88354735964f6d5489fbaa68c3ea0a3536504",
+            admin: ["shink"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 Ji Yuanhao</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/shink/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

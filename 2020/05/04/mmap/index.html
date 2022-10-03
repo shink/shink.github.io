@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>C++ mmap 多进程文件读写 - 深刻的技术博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="深刻的技术博客"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="深刻的技术博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="mmap 采用内存映射的方式，直接将磁盘上的文件映射到内存（准确的说是虚拟内存）中，不需要其他额外空间，对内存映射区的修改可以与磁盘文件保持同步，故 mmap 的读写速度非常快 使用 mmap 需注意以下两点：  仅支持 linux 系统  mmap 映射区域大小必须是物理页大小（page size）的整倍数（32 位系统中通常是 4k 字节）"><meta property="og:type" content="blog"><meta property="og:title" content="C++ mmap 多进程文件读写"><meta property="og:url" content="https://shink.github.io/2020/05/04/mmap/"><meta property="og:site_name" content="深刻的技术博客"><meta property="og:description" content="mmap 采用内存映射的方式，直接将磁盘上的文件映射到内存（准确的说是虚拟内存）中，不需要其他额外空间，对内存映射区的修改可以与磁盘文件保持同步，故 mmap 的读写速度非常快 使用 mmap 需注意以下两点：  仅支持 linux 系统  mmap 映射区域大小必须是物理页大小（page size）的整倍数（32 位系统中通常是 4k 字节）"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://shink.github.io/img/og_image.png"><meta property="article:published_time" content="2020-05-04T13:13:02.000Z"><meta property="article:modified_time" content="2022-10-02T14:53:45.549Z"><meta property="article:author" content="Ji Yuanhao"><meta property="article:tag" content="C++"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://shink.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shink.github.io/2020/05/04/mmap/"},"headline":"C++ mmap 多进程文件读写","image":["https://shink.github.io/img/og_image.png"],"datePublished":"2020-05-04T13:13:02.000Z","dateModified":"2022-10-02T14:53:45.549Z","author":{"@type":"Person","name":"Ji Yuanhao"},"publisher":{"@type":"Organization","name":"深刻的技术博客","logo":{"@type":"ImageObject","url":"https://shink.github.io/img/favicon.svg"}},"description":"mmap 采用内存映射的方式，直接将磁盘上的文件映射到内存（准确的说是虚拟内存）中，不需要其他额外空间，对内存映射区的修改可以与磁盘文件保持同步，故 mmap 的读写速度非常快 使用 mmap 需注意以下两点：  仅支持 linux 系统  mmap 映射区域大小必须是物理页大小（page size）的整倍数（32 位系统中通常是 4k 字节）"}</script><link rel="canonical" href="https://shink.github.io/2020/05/04/mmap/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="View on GitHub" href="https://github.com/shink/shink.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-05-04T13:13:02.000Z" title="2020/5/4 21:13:02">2020-05-04</time>发表</span><span class="level-item"><time dateTime="2022-10-02T14:53:45.549Z" title="2022/10/2 22:53:45">2022-10-02</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/C/">C++</a></span><span class="level-item">12 分钟读完 (大约1825个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">C++ mmap 多进程文件读写</h1><div class="content"><p>mmap 采用内存映射的方式，直接将磁盘上的文件映射到内存（准确的说是虚拟内存）中，不需要其他额外空间，对内存映射区的修改可以与磁盘文件保持同步，故 mmap 的读写速度非常快</p>
+<p>使用 mmap 需注意以下两点：</p>
+<ul>
+<li><p>仅支持 linux 系统</p>
+</li>
+<li><p>mmap 映射区域大小必须是物理页大小（page size）的整倍数（32 位系统中通常是 4k 字节）</p>
+</li>
+</ul>
+<span id="more"></span>
+<h2 id="1-mmap-使用"><a href="#1-mmap-使用" class="headerlink" title="1. mmap 使用"></a>1. mmap 使用</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  开启映射</span></span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">mmap</span><span class="params">(<span class="type">void</span> *start, <span class="type">size_t</span> length, <span class="type">int</span> prot, <span class="type">int</span> flags, <span class="type">int</span> fd, <span class="type">off_t</span> offset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  关闭映射</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">munmap</span><span class="params">(<span class="type">void</span> *start, <span class="type">size_t</span> length)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>函数形参含义：</p>
+<ul>
+<li>*start: 指向欲映射的内存起始地址，通常设为 NULL，表示让系统自动选定地址，映射成功后返回该地址</li>
+<li>length: 表示将文件中多大的部分映射到内存，即映射区的长度</li>
+<li><p>prot: 映射区域的保护方式，不能与文件的打开模式冲突。可以为以下一种或几种方式，多种方式使用 or 组合（”<code>|</code>“）</p>
+<ul>
+<li><code>PROT_EXEC</code>: 映射区域可被执行</li>
+<li><code>PROT_READ</code>: 映射区域可被读取</li>
+<li><code>PROT_WRITE</code>: 映射区域可被写入</li>
+<li><code>PROT_NONE</code>: 映射区域不能存取</li>
+</ul>
+</li>
+<li><p>flags: 影响映射区域的各种特性，指定映射对象的类型，映射选项和映射页是否可以共享。在调用 mmap() 时必须要指定 MAP_SHARED 或 MAP_PRIVATE，flags 可以是以下一个或者多个值：</p>
+<ul>
+<li><code>MAP_FIXED</code>: 如果参数 start 所指的地址无法成功建立映射时，则放弃映射，不对地址做修正。通常不鼓励这样设置</li>
+<li><code>MAP_SHARED</code>: 对映射区域的写入数据会复制回文件内，而且允许其他映射该文件的进程共享。与其它所有映射这个对象的进程共享映射空间。对共享区的写入，相当于输出到文件。直到 msync() 或者 munmap() 被调用，文件实际上不会被更新</li>
+<li><code>MAP_PRIVATE</code>: 对映射区域的写入操作会产生一个映射文件的复制，即私人的“写入时复制”（copy on write）对此区域作的任何修改都不会写回原来的文件内容，写入不会影响到原文件。这个标志和 MAP_SHARED 是互斥的，只能使用其中之一</li>
+<li><code>MAP_ANONYMOUS</code>: 建立匿名映射。此时会忽略参数fd，不涉及文件，而且映射区域无法和其他进程共享。</li>
+<li><code>MAP_DENYWRITE</code>: 只允许对映射区域的写入操作，其他对文件直接写入的操作将会被拒绝</li>
+<li><code>MAP_LOCKED</code>: 将映射区域锁定住，这表示该区域不会被置换（swap），从而防止页面被交换出内存</li>
+<li><code>MAP_NORESERVE</code>: 不为这个映射保留交换空间。当交换空间被保留，对映射区修改的可能会得到保证。当交换空间不被保留，同时内存不足，对映射区的修改会引起段违例信号</li>
+<li><code>MAP_LOCKED</code>: 锁定映射区的页面，从而防止页面被交换出内存</li>
+<li><code>MAP_GROWSDOWN</code>: 用于堆栈，告诉内核 VM 系统，映射区可以向下扩展</li>
+<li><code>MAP_POPULATE</code>: 为文件映射通过预读的方式准备好页表。随后对映射区的访问不会被页违例阻塞</li>
+<li><code>MAP_NONBLOCK</code>: 仅和 MAP_POPULATE 一起使用时才有意义。不执行预读，只为已存在于内存中的页面建立页表入口</li>
+</ul>
+</li>
+<li><p>fd: 要映射到内存中的文件描述符</p>
+</li>
+<li>offset: 文件映射的偏移量，通常设置为 0，表示从文件起始位置对应，offset 必须是 page size 的整数倍</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>若映射成功，mmap() 返回映射区的内存起始地址，munmap() 返回 0</li>
+<li>若映射失败，mmap() 返回 MAP_FAILED，其值为(void *)-1，munmap() 返回 -1</li>
+</ul>
+<h2 id="2-mmap-读"><a href="#2-mmap-读" class="headerlink" title="2. mmap 读"></a>2. mmap 读</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> fd = <span class="built_in">open</span>(file_name.<span class="built_in">c_str</span>(), O_RDONLY);</span><br><span class="line"><span class="comment">//  读取文件长度</span></span><br><span class="line"><span class="type">int</span> len = <span class="built_in">lseek</span>(fd, <span class="number">0</span>, SEEK_END);</span><br><span class="line"><span class="comment">//  建立映射</span></span><br><span class="line"><span class="type">char</span> *buffer = (<span class="type">char</span> *) <span class="built_in">mmap</span>(<span class="literal">NULL</span>, len, PROT_READ, MAP_PRIVATE, fd, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">close</span>(fd);</span><br><span class="line"></span><br><span class="line"><span class="comment">//  do something</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  关闭映射</span></span><br><span class="line"><span class="built_in">munmap</span>(buffer, len);</span><br></pre></td></tr></table></figure>
+<h2 id="3-mmap-写"><a href="#3-mmap-写" class="headerlink" title="3. mmap 写"></a>3. mmap 写</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> len = data.<span class="built_in">length</span>();</span><br><span class="line"><span class="comment">// 打开文件</span></span><br><span class="line"><span class="type">int</span> fd = <span class="built_in">open</span>(file_name.<span class="built_in">c_str</span>(), O_RDWR | O_CREAT, <span class="number">00777</span>);</span><br><span class="line"><span class="comment">// lseek将文件指针往后移动 len - 1 位</span></span><br><span class="line"><span class="built_in">lseek</span>(fd, len - <span class="number">1</span>, SEEK_END);</span><br><span class="line"><span class="comment">// 预先写入一个空字符；mmap不能扩展文件长度，这里相当于预先给文件长度，准备一个空架子</span></span><br><span class="line"><span class="built_in">write</span>(fd, <span class="string">&quot; &quot;</span>, <span class="number">1</span>);</span><br><span class="line"><span class="comment">// 建立映射</span></span><br><span class="line"><span class="type">char</span> *buffer = (<span class="type">char</span> *) <span class="built_in">mmap</span>(<span class="literal">NULL</span>, len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 关闭文件</span></span><br><span class="line"><span class="built_in">close</span>(fd);</span><br><span class="line"><span class="comment">// 将 data 复制到 buffer 里</span></span><br><span class="line"><span class="built_in">memcpy</span>(buffer, data, len);</span><br><span class="line"><span class="comment">// 关闭映射</span></span><br><span class="line"><span class="built_in">munmap</span>(buffer, len)</span><br></pre></td></tr></table></figure>
+<h2 id="4-mmap-多进程写"><a href="#4-mmap-多进程写" class="headerlink" title="4. mmap 多进程写"></a>4. mmap 多进程写</h2><p>不管是父子进程还是无亲缘关系的进程，都可以将自身用户空间映射到同一个文件或匿名映射到同一片区域。从而通过各自对映射区域的改动，达到进程间通信和进程间共享的目的</p>
+<p>这里以 8 进程为例</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> PROCESS_COUNT = <span class="number">8</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> RESULT_SIZE = <span class="number">20000</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">work</span><span class="params">(<span class="type">const</span> string &amp;file_name, <span class="type">int</span> pid)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> fd = <span class="built_in">open</span>(file_name.<span class="built_in">c_str</span>(), O_RDWR | O_CREAT, <span class="number">0666</span>);</span><br><span class="line">    <span class="type">char</span> *buffer = (<span class="type">char</span> *) <span class="built_in">mmap</span>(<span class="literal">NULL</span>, RESULT_SIZE * <span class="number">2</span>, PROT_READ | PROT_WRITE, MAP_SHARED, fd, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">close</span>(fd);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> start = pid * RESULT_SIZE / PROCESS_COUNT;</span><br><span class="line">    <span class="type">int</span> end = start + RESULT_SIZE / PROCESS_COUNT;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt; end; ++i) &#123;</span><br><span class="line">        buffer[i &lt;&lt; <span class="number">1</span>] = (i % <span class="number">2</span> != <span class="number">0</span> ? <span class="string">&#x27;1&#x27;</span> : <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        buffer[i &lt;&lt; <span class="number">1</span> | <span class="number">1</span>] = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">munmap</span>(buffer, RESULT_SIZE * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string predict_file = <span class="string">&quot;result.txt&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  填充文件</span></span><br><span class="line">    <span class="type">int</span> fd = <span class="built_in">open</span>(predict_file.<span class="built_in">c_str</span>(), O_RDWR | O_CREAT, <span class="number">0666</span>);</span><br><span class="line">    <span class="built_in">lseek</span>(fd, RESULT_SIZE * <span class="number">2</span> - <span class="number">1</span>, SEEK_SET);</span><br><span class="line">    <span class="built_in">write</span>(fd, <span class="string">&quot; &quot;</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">close</span>(fd);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  mmap多进程写</span></span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="type">pid_t</span> pid;</span><br><span class="line">    vector&lt;<span class="type">pid_t</span>&gt; pids;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; PROCESS_COUNT; i++) &#123;</span><br><span class="line">        id = i;</span><br><span class="line">        pid = fork();</span><br><span class="line">        <span class="keyword">if</span> (pid &lt;= <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        pids.<span class="built_in">push_back</span>(pid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">-1</span>) &#123;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;startup process failed&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">work</span>(predict_file, id); <span class="comment">//  子进程</span></span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">work</span>(predict_file, <span class="number">0</span>);  <span class="comment">//  main进程</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5. 注意事项"></a>5. 注意事项</h2><p>mmap 映射区域大小必须是物理页大小（page size）的整倍数（32 位系统中通常是 4k 字节）。原因是，内存的最小粒度是页，而进程虚拟地址空间和内存的映射也是以页为单位，为了匹配内存的操作，mmap 从磁盘到虚拟地址空间的映射也必须是页</p>
+<p>但是我们要读写的文件大小往往并不是 4k 的整数倍，因此在建立映射时一定要准确把握文件大小与映射区的 length 大小</p>
+<ul>
+<li><p>若文件不是 4k 的整数倍，此时实际映射区域依然是 4k 的整数倍，剩余部分用 0 填充。尽管剩余部分不在文件范围内，但是依然可以正常读写，该部分内容的改变并不影响原文件。（比如文件大小为 8000 字节，则实际映射区域大小为 8192 字节，8000 ~ 8192 字节用 0 填充，并且该区域可以正常访问）</p>
+</li>
+<li><p>若设置映射区域大小远大于文件大小，比如文件大小 8000 字节，设置 length 为 100000 字节，则只有与文件相对应的物理页读写有效，即仅有前两页有效，对于 8192 ~ 100000 区域以及 100000 以外的区域，进程不能读写</p>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>C++ mmap 多进程文件读写</p><p><a href="https://shink.github.io/2020/05/04/mmap/">https://shink.github.io/2020/05/04/mmap/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Ji Yuanhao</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-05-04</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-10-02</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/C/">C++</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=633966102c87310019e279ac&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat_donate_qrcode.jpg" alt="微信"></span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay_donate_qrcode.jpg" alt="支付宝"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/06/01/github-actions-secret/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">GitHub Actions 中 python 脚本获取仓库 secrets</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/04/03/protege/"><span class="level-item">Protege 使用教程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: "cb696b88fa1395452372c0cdf7426971",
+            repo: "gitalk-comments",
+            owner: "shink",
+            clientID: "4a4840c48682210d69be",
+            clientSecret: "c7b88354735964f6d5489fbaa68c3ea0a3536504",
+            admin: ["shink"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: "last",
+            
+            
+            enableHotKey: true,
+            language: "zh-CN",
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.svg" alt="深刻的技术博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 Ji Yuanhao</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/shink/"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
